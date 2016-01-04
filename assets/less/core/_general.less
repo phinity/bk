@@ -1,0 +1,177 @@
+
+body {
+
+  padding-top: @navbar-height;
+  &.navbar-mini {
+    //padding-top: ;
+  }
+}
+
+body.swipeit {//html.swipeit, 
+  height: 100%;
+  overflow: hidden;
+}
+
+// cms toolbar
+html.cms-ready {
+  &.cms-toolbar-expanded {
+    .navbar-fixed-top {
+      top: 30px;
+    }
+    #cms_toolbar {
+      .cms_toolbar {
+        box-shadow: none;
+        border-color: @gray-base;
+        background: #fff;
+      }
+    }
+  }
+}
+
+img {
+  max-width: 100%;
+}
+
+// highlight
+
+::selection {
+  background-color: @brand-primary;
+  color: #ffffff;
+}
+
+::-moz-selection { 
+  background-color: @brand-primary;
+  color: #ffffff;
+}
+
+
+a, a:link {
+  .transition-duration(200ms);
+  .transition-property('color');
+}
+
+
+// align bottom
+// make sure to set relative parent and padding for specific instances
+
+.align-bottom {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+}
+
+.oldie {
+  .align-bottom {
+    position: relative;
+    clear: both;
+  }
+}
+
+/* Accessibility aid */ 
+
+.accessibility-aid {
+  position: absolute;
+  top: -1000px;
+  left: -1000px;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+}
+
+.accessibility-aid:active, 
+.accessibility-aid:focus, 
+.accessibility-aid:hover {
+    left: 0; 
+    top: 0;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    position: absolute;
+    z-index: 99999;
+    padding: 7px 15px;
+    background-color: #fafafa;
+    color: #555559;
+    background-color: #fff;
+    outline: none;
+}
+
+
+
+// Responsive classes ////////////////////
+
+// mobile first
+.desktop-only,
+.lt-sm-hidden,
+.lt-md-hidden,
+.lt-lg-hidden {
+  display: none;
+}
+
+// mobile, desktop
+
+@media (max-width: @screen-sm) {
+  .mobile-only {
+    display:block !important;
+  }
+  .desktop-only {
+    display:none !important;
+  }
+}
+
+// min
+
+@media (min-width: @screen-sm) {
+  .gt-sm-hidden {
+    display:none !important;
+  }
+  .lt-sm-hidden {
+    display:block !important;
+  }
+}
+
+@media (min-width: @screen-md) {
+  .gt-md-hidden {
+    display:none !important;
+  }
+  .lt-md-hidden {
+    display:block !important;
+  }
+}
+
+@media (min-width: @screen-lg) {
+  .gt-lg-hidden {
+    display:none !important;
+  }
+  .lt-lg-hidden {
+    display:block !important;
+  }
+}
+
+// max
+
+@media (max-width: @screen-sm) {
+  .lt-sm-hidden {
+    display:none !important;
+  }
+  .gt-sm-hidden {
+    display:block !important;
+  }
+}
+
+@media (max-width: @screen-md) {
+  .lt-md-hidden {
+    display:none !important;
+  }
+  .gt-md-hidden {
+    display:block !important;
+  }
+}
+
+@media (max-width: @screen-lg) {
+  .lt-lg-hidden {
+    display:none !important;
+  }
+  .gt-lg-hidden {
+    display:block !important;
+  }
+}

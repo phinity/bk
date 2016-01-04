@@ -1,0 +1,19 @@
+
+// header animation
+
+#header {
+  .easeOutQuad();
+  .transition-duration(800ms);
+  .transition-property(~'transform');
+  //position: relative;
+  &.active {
+    .transform(~'translateY(0%)');
+    //top: 0;
+  }
+  &.inactive {
+    .transform(~'translateY(-100%)');
+    //top: -100%;
+  }
+}
+
+
