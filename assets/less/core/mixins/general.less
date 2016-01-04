@@ -1,0 +1,43 @@
+/*
+  General Mixins
+*/
+.color(@color) {
+  color: @color;
+  a {
+    color: @color;
+    &:hover, &:focus {
+      color:@color;
+    }
+  }
+}
+.svgColor() {
+  svg {
+    fill: currentColor;
+  }
+}
+
+.svg-bg(@filename, @width, @height) {
+  background-image: url('@{filename}.png');
+  background-image: url('@{filename}.svg'), none;
+  background-repeat: no-repeat;
+  background-size: @width @height;
+}
+
+.retina-image(@file-1x, @type, @width-1x, @height-1x) {
+  background-image: url("@{file-1x}.@{type}");
+
+  @media
+  only screen and (-webkit-min-device-pixel-ratio: 2),
+  only screen and (   min--moz-device-pixel-ratio: 2),
+  only screen and (     -o-min-device-pixel-ratio: 2/1),
+  only screen and (        min-device-pixel-ratio: 2),
+  only screen and (                min-resolution: 192dpi),
+  only screen and (                min-resolution: 2dppx) {
+    background-image: url("@{file-1x}@2x.@{type}");
+    background-size: @width-1x @height-1x;
+  }
+}
+
+.no-outline {
+  outline: none;
+}

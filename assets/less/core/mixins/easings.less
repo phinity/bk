@@ -1,0 +1,161 @@
+/*
+   Robert Penner's Easing Functions
+*/
+
+// Modified from: github.com/kirkstrobeck/bootstrap/blob/master/less/easing.less
+
+// Easing equations
+
+@linear: ~"linear";
+@ease: ~"ease";
+@ease-in: ~"ease-in";
+@ease-out: ~"ease-out";
+@ease-in-out: ~"ease-in-out";
+@easeInQuad: ~"0.550, 0.085, 0.680, 0.530";
+@easeInCubic: ~"0.550, 0.055, 0.675, 0.190";
+@easeInQuart: ~"0.895, 0.030, 0.685, 0.220";
+@easeInQuint: ~"0.755, 0.050, 0.855, 0.060";
+@easeInSine: ~"0.470, 0.000, 0.745, 0.715";
+@easeInExpo: ~"0.950, 0.050, 0.795, 0.035";
+@easeInCirc: ~"0.600, 0.040, 0.980, 0.335";
+@easeInBackOld: ~"0.600, 0, 0.735, 0.045";
+@easeInBack: ~"0.600, -0.280, 0.735, 0.045";
+@easeOutQuad: ~"0.250, 0.460, 0.450, 0.940";
+@easeOutCubic: ~"0.215, 0.610, 0.355, 1.000";
+@easeOutQuart: ~"0.165, 0.840, 0.440, 1.000";
+@easeOutQuint: ~"0.230, 1.000, 0.320, 1.000";
+@easeOutSine: ~"0.390, 0.575, 0.565, 1.000";
+@easeOutExpo: ~"0.190, 1.000, 0.220, 1.000";
+@easeOutCirc: ~"0.075, 0.820, 0.165, 1.000";
+@easeOutBackOld: ~"0.175, 0.885, 0.320, 1";
+@easeOutBack: ~"0.175, 0.885, 0.320, 1.275";// 301ng
+@easeInOutQuad: ~"0.455, 0.030, 0.515, 0.955";
+@easeInOutCubic: ~"0.645, 0.045, 0.355, 1.000";
+@easeInOutQuart: ~"0.770, 0.000, 0.175, 1.000";
+@easeInOutQuint: ~"0.860, 0.000, 0.070, 1.000";
+@easeInOutSine: ~"0.445, 0.050, 0.550, 0.950";
+@easeInOutExpo: ~"1.000, 0.000, 0.000, 1.000";
+@easeInOutCirc: ~"0.785, 0.135, 0.150, 0.860";
+@easeInOutBackOld: ~"0.680, 0, 0.265, 1";
+@easeInOutBack: ~"0.680, -0.550, 0.265, 1.550";
+
+// Easing mixins
+
+.easeLinear() {
+  .transition-timing-function(@linear);
+}
+
+.ease() {
+  .transition-timing-function(@ease);
+}
+
+.easeIn() {
+  .transition-timing-function(@ease-in);
+}
+
+.easeOut() {
+  .transition-timing-function(@ease-out);
+}
+
+.easeInOut() {
+  .transition-timing-function(@ease-in-out);
+}
+
+.easeInQuad() {
+  .transition-timing-function(cubic-bezier(@easeInQuad));
+}
+
+.easeInCubic() {
+  .transition-timing-function(cubic-bezier(@easeInCubic));
+}
+
+.easeInQuart() {
+  .transition-timing-function(cubic-bezier(@easeInQuart));
+}
+
+.easeInQuint() {
+  .transition-timing-function(cubic-bezier(@easeInQuint));
+}
+
+.easeInSine() {
+  .transition-timing-function(cubic-bezier(@easeInSine));
+}
+
+.easeInExpo() {
+  .transition-timing-function(cubic-bezier(@easeInExpo));
+}
+
+.easeInCirc() {
+  .transition-timing-function(cubic-bezier(@easeInCirc));
+}
+
+.easeInBack() {
+  -webkit-transition-timing-function: cubic-bezier(@easeInBackOld);
+  .transition-timing-function(cubic-bezier(@easeInBack));
+}
+
+.easeOutQuad() {
+  .transition-timing-function(cubic-bezier(@easeOutCubic));
+}
+
+.easeOutCubic() {
+  .transition-timing-function(cubic-bezier(@easeOutCubic));
+}
+
+.easeOutQuart() {
+  .transition-timing-function(cubic-bezier(@easeOutQuart));
+}
+
+.easeOutQuint() {
+  .transition-timing-function(cubic-bezier(@easeOutQuint));
+}
+
+.easeOutSine() {
+  .transition-timing-function(cubic-bezier(@easeOutSine));
+}
+
+.easeOutExpo() {
+  .transition-timing-function(cubic-bezier(@easeOutExpo));
+}
+
+.easeOutCirc() {
+  .transition-timing-function(cubic-bezier(@easeOutCirc));
+}
+
+.easeOutBack() {
+  -webkit-transition-timing-function: cubic-bezier(@easeOutBackOld);
+  .transition-timing-function(cubic-bezier(@easeOutBack));
+}
+
+.easeInOutQuad() {
+  .transition-timing-function(cubic-bezier(@easeInOutQuad));
+}
+
+.easeInOutCubic() {
+  .transition-timing-function(cubic-bezier(@easeInOutCubic));
+}
+
+.easeInOutQuart() {
+  .transition-timing-function(cubic-bezier(@easeInOutQuart));
+}
+
+.easeInOutQuint() {
+  .transition-timing-function(cubic-bezier(@easeInOutQuint));
+}
+
+.easeInOutSine() {
+  .transition-timing-function(cubic-bezier(@easeInOutSine));
+}
+
+.easeInOutExpo() {
+  .transition-timing-function(cubic-bezier(@easeInOutExpo));
+}
+
+.easeInOutCirc() {
+  .transition-timing-function(cubic-bezier(@easeInOutCirc));
+}
+
+.easeInOutBack() {
+  -webkit-transition-timing-function: cubic-bezier(@easeInOutBackOld);
+  .transition-timing-function(cubic-bezier(@easeInOutBack));
+}
