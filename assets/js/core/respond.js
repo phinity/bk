@@ -7,7 +7,7 @@
 
 (function () {
     
-    window.twoseventy = window.twoseventy || {};
+    window.me = window.me || {};
     
     var init = function() {
       
@@ -25,19 +25,19 @@
       
       // mobile
       var newmobile = $(window).width() < 767;
-      if (newmobile != twoseventy.mobile || typeof twoseventy.mobile === "undefined" ) {
+      if (newmobile != me.mobile || typeof me.mobile === "undefined" ) {
         mobileClassing(newmobile);
         $(window).trigger('mobileChange', newmobile);
-        twoseventy.mobile = newmobile;
+        me.mobile = newmobile;
       }
       
       
       // widescreen
       var newwidescreen = $(window).width() > 1140;
-      if (newwidescreen != twoseventy.widescreen || typeof twoseventy.widescreen === "undefined" ) {
+      if (newwidescreen != me.widescreen || typeof me.widescreen === "undefined" ) {
         mobileClassing(newmobile, newwidescreen);
         $(window).trigger('widescreenChange', newwidescreen);
-        twoseventy.widescreen = newwidescreen;
+        me.widescreen = newwidescreen;
       }
       
       

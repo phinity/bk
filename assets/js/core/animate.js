@@ -4,7 +4,7 @@
 
 (function () {
     
-    window.twoseventy = window.twoseventy || {};
+    window.me = window.me || {};
     
     var init = function() {
       
@@ -14,7 +14,7 @@
       
       scrollAppear();
       
-      twoseventy.scrollToAnchor();
+      me.scrollToAnchor();
       
       backgroundImageScroll();
       
@@ -144,7 +144,7 @@
     
     var scrollAppear = function() {
         if ($().appear) {
-          if (twoseventy.mobile) {//TODO check if this is stil valid with used version of jQ.
+          if (me.mobile) {//TODO check if this is stil valid with used version of jQ.
             // disable animation on mobile
             $(".withAnimation").removeClass("withAnimation");
           } else {
@@ -185,7 +185,8 @@
      * SCROLL TO ANCHOR
      */
     
-    twoseventy.scrollToAnchor = function() {
+    me.scrollToAnchor = function() {
+      //console.log('scrollToAnchor');
       $('a.scroll-to[href*=#]:not([href=#])').click(function (e) {
         if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
           var target = $(this.hash);
@@ -199,7 +200,7 @@
           if(target.length) {
             
             var myTop =  target.offset().top - myOffset;
-            twoseventy.scrollTo(myTop, mySpeed, myEase);
+            me.scrollTo(myTop, mySpeed, myEase);
             
             /*$('html,body').animate({
               scrollTop: target.offset().top - myOffset
@@ -214,7 +215,7 @@
       
     };
     
-    twoseventy.scrollTo = function(myTop, mySpeed, myEase) {
+    me.scrollTo = function(myTop, mySpeed, myEase) {
       $('html,body').animate({
         scrollTop: myTop
       }, mySpeed, myEase);
@@ -241,7 +242,7 @@
         
         reposition = function() {
           
-          if (twoseventy.mobile || twoseventy.widescreen) {
+          if (me.mobile || me.widescreen) {
             $background.css('background-position', align+' 50%');
           } else {
             pageStats();

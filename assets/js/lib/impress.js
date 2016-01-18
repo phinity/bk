@@ -16,6 +16,10 @@
  *  source:  http://github.com/bartaz/impress.js/
  */
 
+
+
+////
+
 /*jshint bitwise:true, curly:true, eqeqeq:true, forin:true, latedef:true, newcap:true,
          noarg:true, noempty:true, undef:true, strict:true, browser:true */
 
@@ -112,6 +116,17 @@
         el.dispatchEvent(event);
     };
     
+    //www.webmonkey.com/2010/02/javascript_event_-_scroll/
+    /*var addEvent = function( obj, type, fn ) {
+      if ( obj.attachEvent ) {
+        obj['e'+type+fn] = fn;
+        obj[type+fn] = function(){obj['e'+type+fn]( window.event );}
+        obj.attachEvent( 'on'+type, obj[type+fn] );
+      } else
+        obj.addEventListener( type, fn, false );
+    };*/
+    
+    
     // `translate` builds a translate transform string for given data.
     var translate = function ( t ) {
         return " translate3d(" + t.x + "px," + t.y + "px," + t.z + "px) ";
@@ -161,7 +176,7 @@
             scale = config.minScale;
         }
         
-        return scale;
+        return 1;//scale;
     };
     
     // CHECK SUPPORT
@@ -205,7 +220,7 @@
         
         perspective: 1000,
         
-        transitionDuration: 1000
+        transitionDuration: 1750
     };
     
     // it's just an empty function ... and a useless comment.
@@ -261,7 +276,7 @@
         var canvas = document.createElement("div");
         
         var initialized = false;
-        
+        //var impressActive = true;
         // STEP EVENTS
         //
         // There are currently two step events triggered by impress.js
@@ -309,9 +324,12 @@
                         z: toNumber(data.rotateZ || data.rotate)
                     },
                     scale: toNumber(data.scale, 1),
-                    el: el
+                    el: el,
+                    scrolling: data.scrolling || false,
+                    offset: {x:0,y:0,z:0},
+                    height: el.clientHeight
                 };
-            
+                console.log(step);
             if ( !el.id ) {
                 el.id = "step-" + (idx + 1);
             }
@@ -320,7 +338,7 @@
             
             css(el, {
                 position: "absolute",
-                transform: "translate(-50%,-50%)" +
+                transform: "translate(-50%,-"+window.innerHeight/2+"px)" +
                            translate(step.translate) +
                            rotate(step.rotate) +
                            scale(step.scale),
@@ -371,7 +389,7 @@
             var rootStyles = {
                 position: "absolute",
                 transformOrigin: "top left",
-                transition: "all 0s ease-in-out",
+                transition: "all 0s ease-out-expo",
                 transformStyle: "preserve-3d"
             };
             
@@ -400,7 +418,16 @@
             initialized = true;
             
             triggerEvent(root, "impress:init", { api: roots[ "impress-root-" + rootId ] });
+            
+            /*addEvent(window, 'scroll', function(event) {
+                var api = roots[ "impress-root-" + rootId ];
+                //iiiapi.goto( document.querySelector(".step.active"), 500, 0, -window.pageYOffset);
+                //console.log(window.pageYOffset);
+            });*/
+            
+            
         };
+        
         
         // `getStep` is a helper function that returns a step element defined by parameter.
         // If a number is given, step with index given by the number is returned, if a string
@@ -420,7 +447,10 @@
         
         // `goto` API function that moves to step given with `el` parameter (by index, id or element),
         // with a transition `duration` optionally given as second parameter.
-        var goto = function ( el, duration ) {
+        var goto = function ( el, duration, delay, offset ) {
+            
+            el = typeof el === 'undefined' || !el ? activeStep : el;
+            offset = typeof offset === 'undefined' ? {x:0,y:0,z:0} : offset;
             
             if ( !initialized || !(el = getStep(el)) ) {
                 // presentation not initialized or given element is not a step
@@ -448,6 +478,10 @@
             
             body.classList.add("impress-on-" + el.id);
             
+            step.offset.x += offset.x;
+            step.offset.y += offset.y;
+            step.offset.z += offset.z; 
+            
             // compute target state of the canvas based on given step
             var target = {
                 rotate: {
@@ -456,13 +490,13 @@
                     z: -step.rotate.z
                 },
                 translate: {
-                    x: -step.translate.x,
-                    y: -step.translate.y,
-                    z: -step.translate.z
+                    x: -step.translate.x +step.offset.x,
+                    y: -step.translate.y +step.offset.y,
+                    z: -step.translate.z +step.offset.z
                 },
                 scale: 1 / step.scale
             };
-            
+            //console.log(target);
             // Check if the transition is zooming in or not.
             //
             // This information is used to alter the transition style:
@@ -472,7 +506,7 @@
             var zoomin = target.scale >= currentState.scale;
             
             duration = toNumber(duration, config.transitionDuration);
-            var delay = (duration / 2);
+            var delay = delay ? delay : (duration / 2);
             
             // if the same step is re-selected, force computing window scaling,
             // because it is likely to be caused by window resize
@@ -480,7 +514,7 @@
                 windowScale = computeWindowScale(config);
             }
             
-            var targetScale = target.scale * windowScale;
+            var targetScale = target.scale * windowScale;//(step.scrolling ? 1 : windowScale);
             
             // trigger leave of currently active element (if it's not the same step again)
             if (activeStep && activeStep !== el) {
@@ -659,14 +693,26 @@
     
     // throttling function calls, by Remy Sharp
     // http://remysharp.com/2010/07/21/throttling-function-calls/
-    var throttle = function (fn, delay) {
-        var timer = null;
+    var throttle = function (fn, threshhold, scope) {
+      threshhold || (threshhold = 50);
+        var last,
+            deferTimer;
         return function () {
-            var context = this, args = arguments;
-            clearTimeout(timer);
-            timer = setTimeout(function () {
-                fn.apply(context, args);
-            }, delay);
+          var context = scope || this;
+
+          var now = +new Date,
+              args = arguments;
+          if (last && now < last + threshhold) {
+            // hold on to it
+            clearTimeout(deferTimer);
+            deferTimer = setTimeout(function () {
+              last = now;
+              fn.apply(context, args);
+            }, threshhold);
+          } else {
+            last = now;
+            fn.apply(context, args);
+          }
         };
     };
     
@@ -677,7 +723,7 @@
         // or anything. `impress:init` event data gives you everything you 
         // need to control the presentation that was just initialized.
         var api = event.detail.api;
-        
+        console.log(api);
         // KEYBOARD NAVIGATION HANDLERS
         
         // Prevent default keydown action when one of supported key is pressed.
@@ -757,16 +803,12 @@
                 target = target.parentNode;
             }
             
-            
-            console.log(target);
+            // target another element
             var data = target.dataset;
-            console.log(data.target);
             
             if(data.target) {
               target = document.getElementById( data.target );
             }
-            
-            
             
             if ( api.goto(target) ) {
                 event.preventDefault();
@@ -799,6 +841,133 @@
             api.goto( document.querySelector(".step.active"), 500 );
         }, 250), false);
         
+        
+        
+        
+        
+        // Scroll!
+        // http://www.switchonthecode.com/tutorials/javascript-tutorial-the-scroll-wheel
+        /*function hookEvent(element, eventName, callback) {
+            if(typeof(element) == "string") {
+                element = document.getElementById(element);
+            }
+            if(element == null) { return; }
+            if(element.addEventListener) {
+                if(eventName == 'mousewheel') { 
+                    element.addEventListener('DOMMouseScroll', callback, false);
+                }
+                element.addEventListener(eventName, callback, false);
+            } else if(element.attachEvent) {
+                element.attachEvent("on" + eventName, callback);
+            }
+        }
+        function cancelEvent(e) {
+            e = e ? e : window.event;
+            if(e.stopPropagation) { e.stopPropagation(); }
+            if(e.preventDefault) { e.preventDefault(); }
+            e.cancelBubble = true;
+            e.cancel = true;
+            e.returnValue = false;
+            return false;
+        }
+        
+        function scrolled(e) {
+            e = e ? e : window.event;
+            var raw = e.detail ? e.detail : e.wheelDelta;
+            var normal = e.detail ? e.detail * -1 : e.wheelDelta / 40;
+            //console.log("Raw Value: " + raw + ", Normalized Value: " + normal);
+            
+            //target = document.getElementById( href.slice(1) );
+            var sa = document.querySelector(".step.active");
+            api.goto(sa, 10, 0, {x:0,y:normal,z:0});
+            
+            sa.addEventListener("animationend", AnimationListener, false);
+            
+            
+            
+            //if ( api.goto(false, 50, 0, normal) ) {
+            //    event.stopImmediatePropagation();
+            //    event.preventDefault();
+            //}
+        }*/
+        
+        //hookEvent(document, 'mousewheel', scrolled);
+        
+        /*hookEvent(document, 'mousewheel', throttle(function (e) {
+          //console.log(e);
+          scrolled(e);
+        }, 10) );
+        */
+        
+        
+        /*window.addEventListener("mousewheel", throttle(function (e) {
+          e = e ? e : window.event;
+          var raw = e.detail ? e.detail : e.wheelDelta;
+          var normal = e.detail ? e.detail * -1 : e.wheelDelta / 40;
+            //console.log('mousewheel');
+            console.log("Raw Value: " + raw + ", Normalized Value: " + normal);
+            api.goto( document.querySelector(".step.active"), 50, 0, {x:0,y:normal,z:0} );
+        }, 50), true);
+        */
+        
+        
+        var pfx = ["webkit", "moz", "MS", "o", ""];
+        function PrefixedEvent(element, type, callback) {
+          for (var p = 0; p < pfx.length; p++) {
+            if (!pfx[p]) type = type.toLowerCase();
+            element.addEventListener(pfx[p]+type, callback, false);
+          }
+        }
+        
+        var throttled = true;
+        var throttledOffset = 0;
+        var scrolled = function (e) {
+          e = e ? e : window.event;
+          var raw = e.detail ? e.detail : e.wheelDelta;
+          var normal = e.detail ? e.detail * -1 : e.wheelDelta / 40;
+          //console.log('mousewheel');
+          //console.log("Raw Value: " + raw + ", Normalized Value: " + normal);
+          
+          var el = document.querySelector(".step.active");
+          
+          //if (throttled) {
+          //  el.addEventListener( 'webkitTransitionEnd', AnimationListener, false );
+          //}
+          //console.log('scroll');
+          //PrefixedEvent(el, "TransitionEnd", AnimationListener);
+          
+          /*$(el).one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', 
+            AnimationListener
+          );*/
+          
+          setTimeout(function() {
+            console.log("timemout");
+            api.goto(el, 10, 0, {x:0,y:throttledOffset,z:0} );
+            throttledOffset = 0;
+            throttled = true;
+          }, 10);
+          
+          throttledOffset += normal;
+          throttled = false;
+          
+          
+          
+          //api.goto(el, 20, 0, {x:0,y:throttledOffset,z:0} );
+          
+        }
+        
+        
+        var AnimationListener = function(e) {
+          console.log('AnimationListener');
+          //          
+        }
+        
+        window.addEventListener("mousewheel", scrolled, true);
+        //window.addEventListener("DOMMouseScroll", scrolled, true);
+        
+        //api.goto(el, 20, 0, {x:0,y:throttledOffset,z:0} );
+        
+        
     }, false);
         
 })(document, window);
@@ -810,3 +979,4 @@
 //
 // I've learnt a lot when building impress.js and I hope this code and comments
 // will help somebody learn at least some part of it.
+

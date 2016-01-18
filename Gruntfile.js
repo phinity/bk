@@ -1,5 +1,9 @@
 /*global module:false*/
 module.exports = function(grunt) {
+  // Load all tasks
+  //require('load-grunt-tasks')(grunt);
+  // Show elapsed time
+  //require('time-grunt')(grunt);
 
   // Project configuration.
   grunt.initConfig({
@@ -10,12 +14,12 @@ module.exports = function(grunt) {
     less: {
       me: {
         options: {
-          paths: ['<%= lessPath %>'],
+          //paths: ['<%= lessPath %>'],
           cleancss: true
         },
         files: {
           '<%= distPath %>css/me.min.css': ['<%= assetsPath %>less/me.less'],
-          '<%= distPath %>css/font-awesome.min.css': ['<%= componentPath %>fontawesome/less/font-awesome.less']
+          '<%= distPath %>css/font-awesome.min.css': ['<%= assetsPath %>less/core/_fontawesome.less']
         }
       }
     },
@@ -29,14 +33,15 @@ module.exports = function(grunt) {
       me: {
         files: {
           '<%= distPath %>js/me.min.js': [
-          //'<%= bowerPath %>angular/angular.min.js',
-          '<%= bowerPath %>mustache/mustache.min.js',
-          '<%= bowerPath %>bootstrap/dist/js/bootstrap.min.js',
-          '<%= bowerPath %>jquery.appear.js/jquery.appear.js',
-          '<%= bowerPath %>jquery.easing/js/jquery.easing.min.js',
-          '<%= assetsPath %>js/core/respond.js',
-          '<%= assetsPath %>js/core/animate.js',
-          '<%= assetsPath %>js/me.js'
+            //'<%= bowerPath %>angular/angular.min.js',
+            //'<%= bowerPath %>mustache/mustache.min.js',
+            //'<%= bowerPath %>bootstrap/dist/js/bootstrap.min.js',
+            //'<%= bowerPath %>jquery.appear.js/jquery.appear.js',
+            //'<%= bowerPath %>jquery.easing/js/jquery.easing.min.js',
+            '<%= assetsPath %>js/core/respond.js',
+            '<%= assetsPath %>js/core/animate.js',
+            '<%= assetsPath %>js/lib/impress.js',
+            '<%= assetsPath %>js/me.js'
           ],
           
         }
@@ -49,9 +54,10 @@ module.exports = function(grunt) {
           {
             flatten: true, 
             src: [
-              '<%= assetsPath %>fonts/**', 
-              '<%= assetsPath %>images/**', 
-              '<%= assetsPath %>js/libs/**'
+              '<%= assetsPath %>font/**', 
+              '<%= assetsPath %>img/**', 
+              '<%= assetsPath %>js/lib/**',
+              '<%= assetsPath %>download/**'
             ], 
             dest: '_me/'
           },
@@ -62,7 +68,16 @@ module.exports = function(grunt) {
             src: [
               '<%= componentPath %>fontawesome/fonts/*', 
             ],
-            dest: '<%= distPath %>/fonts/fontawesome/'
+            dest: '<%= distPath %>font/fontawesome/'
+          },
+          {
+            flatten: true,
+            expand: true,
+            src: [
+              '<%= componentPath %>jquery/jquery.min.js', 
+              '<%= componentPath %>jquery/jquery.min.map', 
+            ],
+            dest: '<%= distPath %>/js/lib/'
           }
         ],
       },
@@ -74,11 +89,11 @@ module.exports = function(grunt) {
         //livereload: true,
       },
       css: {
-        files: ['<%= lessPath %>**/*.less'],
+        files: ['<%= assetsPath %>**/*.less'],
         tasks: ['less']
       },
       scripts: {
-        files: ['<%= jsPath %>**/*.js'],
+        files: ['<%= assetsPath %>**/*.js'],
         tasks: ['uglify'],
       },
     }
