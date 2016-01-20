@@ -15,9 +15,9 @@
         mobileChange();
       });
       
-      setTimeout(function() {
+      //setTimeout(function() {
         mobileChange();
-      }, 0);
+      //}, 0);
       
     };
     

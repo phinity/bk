@@ -116,17 +116,6 @@
         el.dispatchEvent(event);
     };
     
-    //www.webmonkey.com/2010/02/javascript_event_-_scroll/
-    /*var addEvent = function( obj, type, fn ) {
-      if ( obj.attachEvent ) {
-        obj['e'+type+fn] = fn;
-        obj[type+fn] = function(){obj['e'+type+fn]( window.event );}
-        obj.attachEvent( 'on'+type, obj[type+fn] );
-      } else
-        obj.addEventListener( type, fn, false );
-    };*/
-    
-    
     // `translate` builds a translate transform string for given data.
     var translate = function ( t ) {
         return " translate3d(" + t.x + "px," + t.y + "px," + t.z + "px) ";
@@ -242,7 +231,7 @@
                 init: empty,
                 goto: empty,
                 prev: empty,
-                next: empty
+                next: empty//,deinit: empty
             };
         }
         
@@ -272,8 +261,8 @@
         var windowScale = null;        
         
         // root presentation elements
-        var root = byId( rootId );
-        var canvas = document.createElement("div");
+        var root = window.root = byId( rootId );
+        var canvas = window.canvas = document.createElement("div");
         
         var initialized = false;
         //var impressActive = true;
@@ -326,10 +315,11 @@
                     scale: toNumber(data.scale, 1),
                     el: el,
                     scrolling: data.scrolling || false,
+                    translateYOffset: (data.scrolling ? '-'+(window.innerHeight*.39)+'px' : "-65%"),
                     offset: {x:0,y:0,z:0},
-                    height: el.clientHeight
+                    height: el.clientHeight,
                 };
-                console.log(step);
+                //console.log(step);
             if ( !el.id ) {
                 el.id = "step-" + (idx + 1);
             }
@@ -338,7 +328,9 @@
             
             css(el, {
                 position: "absolute",
-                transform: "translate(-50%,-"+window.innerHeight/2+"px)" +
+                //transform: "translate(-50%,-50%)" +
+                transform: "translate(-50%,"+step.translateYOffset+")" +
+                //transform: "translate(-50%, "+ (step.scrolling ? ("-"+(window.innerHeight/2+px)+"px") : "-50%") +")" +
                            translate(step.translate) +
                            rotate(step.rotate) +
                            scale(step.scale),
@@ -419,14 +411,62 @@
             
             triggerEvent(root, "impress:init", { api: roots[ "impress-root-" + rootId ] });
             
-            /*addEvent(window, 'scroll', function(event) {
-                var api = roots[ "impress-root-" + rootId ];
-                //iiiapi.goto( document.querySelector(".step.active"), 500, 0, -window.pageYOffset);
-                //console.log(window.pageYOffset);
-            });*/
-            
-            
         };
+        
+        
+        
+        // `initStep` initializes given step element by reading data from its
+        // data attributes and setting correct styles.
+        /*var deinitStep = function ( el, idx ) {
+            
+            css(el, {
+                position: "",
+                transform: "",
+                transformStyle: ""
+            });
+        };*/
+        
+        // `init` API function that initializes (and runs) the presentation.
+        /*var    = function () {
+            if (!initialized) { return; }
+            
+            // set initial styles
+            document.documentElement.style.height = "100%";
+            
+            css(body, {
+                height: "100%",
+                overflow: "visible"
+            });
+            
+            var rootStyles = {
+                position: "relative",
+                transformOrigin: "top left",
+                transition: "all 0s ease-out-expo",
+                transformStyle: "preserve-3d"
+            };
+            
+            css(root, rootStyles);
+            css(root, {
+                top: "0%",
+                left: "0%",
+              transform: ""
+            });
+            css(canvas, rootStyles);
+            
+            body.classList.remove("impress-enabled");
+            body.classList.add("impress-disabled");
+            
+            // get and init steps
+            steps = $$(".step", root);
+            steps.forEach( deinitStep );
+            
+            initialized = false;
+            
+            triggerEvent(root,// /deinit", { api: roots[ "impress-root-" + rootId ] });
+            
+            
+        };*/
+        
         
         
         // `getStep` is a helper function that returns a step element defined by parameter.
@@ -670,7 +710,7 @@
             init: init,
             goto: goto,
             next: next,
-            prev: prev
+            prev: prev//,deinit: deinit
         });
 
     };
@@ -723,7 +763,7 @@
         // or anything. `impress:init` event data gives you everything you 
         // need to control the presentation that was just initialized.
         var api = event.detail.api;
-        console.log(api);
+        
         // KEYBOARD NAVIGATION HANDLERS
         
         // Prevent default keydown action when one of supported key is pressed.
@@ -910,6 +950,15 @@
         }, 50), true);
         */
         
+        //var AnimationListener = function(e) {
+        //  console.log('AnimationListener');
+        //}
+        /*$(el).one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', 
+          AnimationListener
+        );*/
+        //if (throttled) {
+        //  el.addEventListener( 'webkitTransitionEnd', AnimationListener, false );
+        //}
         
         var pfx = ["webkit", "moz", "MS", "o", ""];
         function PrefixedEvent(element, type, callback) {
@@ -919,56 +968,75 @@
           }
         }
         
+        
         var throttled = true;
         var throttledOffset = 0;
-        var scrolled = function (e) {
+        var transitioning = false;
+        
+        var scrolled = function (e, oldNormal) {
           e = e ? e : window.event;
           var raw = e.detail ? e.detail : e.wheelDelta;
-          var normal = e.detail ? e.detail * -1 : e.wheelDelta / 40;
-          //console.log('mousewheel');
+          var normal = e.detail ? e.detail * -1 : e.wheelDelta / 20;
+          typeof oldNormal !== 'undefined' ? normal = oldNormal : '';
           //console.log("Raw Value: " + raw + ", Normalized Value: " + normal);
           
           var el = document.querySelector(".step.active");
           
-          //if (throttled) {
-          //  el.addEventListener( 'webkitTransitionEnd', AnimationListener, false );
-          //}
-          //console.log('scroll');
-          //PrefixedEvent(el, "TransitionEnd", AnimationListener);
-          
-          /*$(el).one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', 
-            AnimationListener
-          );*/
-          
           setTimeout(function() {
-            console.log("timemout");
+            //console.log("timemout");
+            //if(throttledOffset > 0) {
+            //if (!transitioning) {
             api.goto(el, 10, 0, {x:0,y:throttledOffset,z:0} );
+            //} else {
+            //  scrolled(e, oldNormal);
+            //}
+            //}
+            transitioning = true;
             throttledOffset = 0;
             throttled = true;
           }, 10);
           
           throttledOffset += normal;
           throttled = false;
-          
-          
-          
-          //api.goto(el, 20, 0, {x:0,y:throttledOffset,z:0} );
-          
-        }
+        };
         
-        
-        var AnimationListener = function(e) {
-          console.log('AnimationListener');
-          //          
-        }
         
         window.addEventListener("mousewheel", scrolled, true);
-        //window.addEventListener("DOMMouseScroll", scrolled, true);
+        window.addEventListener("DOMMouseScroll", scrolled, true);
         
-        //api.goto(el, 20, 0, {x:0,y:throttledOffset,z:0} );
+        /*PrefixedEvent(window.root, "TransitionEnd", function() {
+          //console.log("TransitionEnd");
+          transitioning = false;
+        });*/
+
         
         
     }, false);
+    
+    
+    
+    
+    
+    /*
+    document.addEventListener("impress:deinit", function (event) {
+      console.log("impress:deinit");
+        var api = event.detail.api;
+        
+        document.removeEventListener("keydown", function ( event ) {}, false);
+        
+        document.removeEventListener("keyup", function ( event ) {}, false);
+        
+        document.removeEventListener("click", function ( event ) {}, false);
+        
+        document.removeEventListener("click", function ( event ) {}, false);
+        
+        document.removeEventListener("touchstart", function ( event ) {}, false);
+        
+        window.removeEventListener("resize", function () {});
+        
+        window.removeEventListener("mousewheel", scrolled);
+        
+    }, false);*/
         
 })(document, window);
 

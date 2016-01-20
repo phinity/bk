@@ -34,6 +34,8 @@ body {
   }
 }
 
+@inline-right-margin: 5px;
+
 h1, .h1,
 h2, .h2,
 h3, .h3 {
@@ -50,6 +52,8 @@ h6, .h6 {
 
 p {
   font-weight: 400;
+  display: inline;
+  padding-right: @inline-right-margin;
 }
 
 
@@ -70,6 +74,10 @@ p {
   }
 
   h3 {
+    
+    display: inline;
+    padding-right: @inline-right-margin;
+    
     font-size: @font-size-h3 *@font-sm;
     @media(min-width: @screen-sm) {
       font-size: @font-size-h3;
@@ -77,6 +85,10 @@ p {
   }
 
   h4 {
+    
+    display: inline;
+    padding-right: @inline-right-margin;
+    
     font-size: @font-size-h4 *@font-sm;
     @media(min-width: @screen-sm) {
       font-size: @font-size-h4;
@@ -84,6 +96,10 @@ p {
   }
 
   h5 {
+    
+    display: inline;
+    padding-right: @inline-right-margin;
+    
     font-size: @font-size-h5 *@font-sm;
     @media(min-width: @screen-sm) {
       font-size: @font-size-h5;
@@ -91,16 +107,13 @@ p {
   }
 
   h6 {
+    
+    display: inline;
+    padding-right: @inline-right-margin;
+    
     font-size: @font-size-h6 *@font-sm;
     @media(min-width: @screen-sm) {
       font-size: @font-size-h6;
-    }
-  }
-
-  h1 {
-    font-size: @font-size-h1 *@font-sm;
-    @media(min-width: @screen-sm) {
-      font-size: @font-size-h1;
     }
   }
 
