@@ -8,7 +8,7 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
     assetsPath: 'assets/',
-    distPath: '_me/assets/',
+    distPath: 'assets/',
     componentPath: 'bower_components/',
     
     less: {
