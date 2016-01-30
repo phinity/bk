@@ -4,11 +4,13 @@ in_dev: true
 title: Ben Korody
 ---
 
-<div id="impress">
-
+<div id="impress" data-timing="">
+  
+    <div id="benkorody" class="step" data-x="-1700" data-y="-1000" data-z="-500" data-rotate="25" data-rotate-x="35" data-rotate-y="-40" data-scale="6" data-delay="" data-duration="" data-easing""></div>
+  
     <div id="benkorody" class="step" data-x="1700" data-y="1000" data-z="500" data-rotate="25" data-rotate-x="35" data-rotate-y="-40" data-scale="6"></div>
     <div id="not-benjamin" class="step" data-x="-150" data-y="300" data-z="700" data-rotate="0" data-rotate-x="-10" data-rotate-y="-20" data-rotate-z="0" data-scale="1"></div>
-    <div id="kenobi" class="step" data-x="-850" data-y="400" data-z="1500" data-rotate="0" data-rotate-x="5" data-rotate-y="-92" data-rotate-z="0" data-scale="1"></div>
+    <div id="kenobi" class="step" data-x="-850" data-y="200" data-z="1500" data-rotate="0" data-rotate-x="5" data-rotate-y="-92" data-rotate-z="0" data-scale="1"></div>
     
     <section class="container content-intro">
       <div class="row">
@@ -23,11 +25,11 @@ title: Ben Korody
             </span>
           </h1>
           <h2>
-            <span id="slogan1" class="step" data-x="0" data-y="550" data-z="0" data-rotate="0" data-rotate-x="0" data-rotate-y="0" data-scale="5" data-target="benkorody" data-step="false">
+            <span id="slogan1" class="step" data-x="0" data-y="520" data-z="0" data-rotate="0" data-rotate-x="0" data-rotate-y="0" data-scale="5" data-target="benkorody" data-step="false">
               Creative
             </span>
 
-            <span id="slogan2" class="step" data-x="1100" data-y="550" data-z="2200" data-rotate="0" data-rotate-x="0" data-rotate-y="-90" data-scale="5" data-target="benkorody" data-step="false">
+            <span id="slogan2" class="step" data-x="1100" data-y="520" data-z="2200" data-rotate="0" data-rotate-x="0" data-rotate-y="-90" data-scale="5" data-target="benkorody" data-step="false">
               Web Developer
             </span>
           </h2>
@@ -51,9 +53,9 @@ title: Ben Korody
               <ul>
                 <li class="content1"><a href="#content1" class="">About</a></li>
                 <li class="content2"><a href="#content2" class="">Connect</a></li>
-                <li class="content3"><a href="#content3" class="">Works</a></li>
+                <li class="content3"><a href="#content3" class="">Work</a></li>
                 <li class="content4"><a href="#content4" class="">Résumé</a></li>
-                <!--li class="content5"><a href="#content5">Colophon</a></li-->
+                {% comment %}<!--li class="content5"><a href="#content5">Colophon</a></li-->{% endcomment %}
               </ul>
           </div>
         
@@ -65,7 +67,57 @@ title: Ben Korody
       <section id="content1" class="container step content" data-x="-1000" data-y="200" data-z="900" data-rotate="0" data-rotate-x="0" data-rotate-y="-95" data-rotate-z="0" data-scale="1">
         <div class="row">
             <div class="col-sm-12">
-            <p><strong>Hello,</strong> I'm <strong title="obviously"><a href="#not-benjamin">Ben</a> <a href="#kenobi">Korody</a></strong> and I help organizations craft unique interactive experiences while exploring the intersection of <strong>art, design, data and technology</strong>.  I am currently <strong>33 years old</strong> and work + live in <strong>Chicago, IL</strong>. My favorite "designer" is <strong><a href="http://messagesandmeans.com" target="blank" title="Murel Cooper">Muriel</a> <a href="https://en.wikipedia.org/wiki/Muriel_Cooper" target="blank" title="Muriel Cooper">Cooper</a></strong> and there are <strong><a href="http://worrydream.com" title="WoryDream: Brent Victor" target="blank">lots</a> <a href="http://codepen.io/ge1doot/" title="ge1doot: Gerard Ferrandez" target="blank">of</a> <a href="http://www.misc.name" title="scanlime: Micah Elizabeth Scott" target="_blank">technologists</a> <a href="https://aerotwist.com/" title="Aerotwist: Paul Lewis" target="_blank">whom</a> <a href="http://acko.net" target="_blank">inspire</a> <a href="http://mrdoob.com" title="Mr. Doob" target="_blank">me</a></strong>. {% comment %}Also, I'm so over the <strong><a href="http://en.wikipedia.org/wiki/Anthropocene#Nature_of_human_effects" target="blank">Anthropocene</a></strong>&mdash;lets move to outer space together.{% endcomment %}</p>
+            {% comment %}
+            
+            http://www.pietmondrian.com/
+            http://www.wassilykandinsky.com/art5.shtml
+            
+            https://en.wikipedia.org/wiki/Superstudio
+            https://www.pinterest.com/mariamkarchkhad/superstudio-architecture/
+            http://d3js.org
+            
+            https://medium.com/the-year-of-the-looking-glass/invisible-design-a0195494a19e#.10j5gdwzu
+            https://medium.com/the-year-of-the-looking-glass/good-design-a89c15136ba6#.2v5m1pqm3
+            http://www.slate.com/blogs/the_eye/2014/12/02/facebook_s_julie_zhuo_on_invisible_design_in_make_your_mark_a_business_book.html
+            
+            {% endcomment %}
+            <p>
+              <strong>Hello,</strong> I'm 
+              <strong title="obviously">
+                <a href="#not-benjamin">Ben</a> 
+                <a href="#kenobi">Korody</a></strong> 
+              and I help organizations craft unique interactive experiences 
+              while exploring the intersection of 
+              <strong title="too many links">
+                art, 
+                design, 
+                data and 
+                technology</strong>. 
+              I am currently 
+              <strong>
+                {% comment %}<a href="https://en.wikipedia.org/wiki/LP_record" title="thirtythree and a third" target="_blank">33 years old</a></strong>{% endcomment %}
+                33 years old</strong>
+                and work + live in 
+              <strong>
+                {% comment %}<a href="https://en.wikipedia.org/wiki/Chicagoland" title="Chicagoland!" target="_blank">Chicago, IL</a></strong>{% endcomment %}Chicago, IL. </strong>
+              My favorite designer is 
+              <strong>
+                <a href="http://messagesandmeans.com" target="_blank" title="Murel Cooper">Muriel</a> 
+                <a href="http://infosthetics.com/archives/2010/02/information_landscapes_1994_muriel_cooper_mit_visible_language_workshop.html" target="_blank" title="Muriel Cooper">Cooper</a></strong> 
+              and there are 
+              <strong>
+                <a href="http://worrydream.com" title="WoryDream: Brent Victor" target="_blank">lots</a> 
+                <a href="http://codepen.io/ge1doot/" title="ge1doot: Gerard Ferrandez" target="_blank">of</a> 
+                <a href="http://www.misc.name" title="Scanlime: Micah Elizabeth Scott" target="_blank">technologists</a> 
+                <a href="http://desandro.com" title="David Desandro" target="_blank">whom</a> 
+                <a href="http://acko.net" target="_blank">inspire</a> 
+                <a href="http://mrdoob.com" title="Mr. Doob" target="_blank">me</a></strong>. 
+              {% comment %}
+              I'm also over the 
+              <strong>
+                <a href="http://en.wikipedia.org/wiki/Anthropocene#Nature_of_human_effects" target="_blank">Anthropocene</a>
+              </strong>&mdash;lets move to outer space together.{% endcomment %}
+            </p>
           </div>
         </div>
       </section>
@@ -76,12 +128,12 @@ title: Ben Korody
         <div class="row">
           <div class="col-sm-12">
             <h3>Connect</h3>
-            <p>Want to accomplish something together? Email me or find me elsewhere.</p>
-            {% comment %}<p>I have a phone number and an address but in order to get these you'll have to e-mail me and explanain who you are and why you want them.</p>{% endcomment %}
+            <p>Lets accomplish something together. Email me or connect with me elsewhere.</p>
+            {% comment %} <p>I have a phone number and an address but in order to get these you'll have to e-mail me and explanain who you are and why you want them.</p>{% endcomment %}
           </div>
           <div class="col-sm-6">
             <p><i class="fa fa-envelope"></i> Email</p>
-            <p><a href="mailto:me@benkorody.com">me@benkorody.com</a></p>
+            <p id="myemail"></p>
           </div>
           <div class="col-sm-6">
             <p><i class="fa fa-user"></i> VCard</p>
@@ -112,26 +164,26 @@ title: Ben Korody
         <div class="row">
           <div class="col-sm-12">
             <h3>Select Works</h3>
-            <p>I spend a lot of time working at really great companies and with really great clients. These are some live website projects I'm proud to say I've played a key role in.</p>
+            <p>I spend a lot of time working at really great companies and with really great clients. These are some live website projects I've played a key role in.</p>
           </div>
         </div>
         
         
         <div class="row">
           <div class="col-sm-4">
-            <h4>270 Strategies</h4>
+            <h4><a href="https://www.270strategies.com/" target="_blank">270 Strategies</a></h4>
           </div>
           <div class="col-sm-8">
             <div class="row">
               <div class="col-sm-12">
                 <h5>270 Strategies</h5>
-                <p>Full-stack web development, with Python</p>
-                <p><a href="http://www.theticketrumba.com/">270strategies.com</a></p>
+                <p>Full-stack web development{% comment %}, with Python{% endcomment %}</p>
+                <p><a href="https://www.270strategies.com/" target="_blank">270strategies.com</a></p>
               </div>
               <div class="col-sm-12">
                 <h5>Indivisible</h5>
                 <p>Dev-Ops, full-stack support</p>
-                <p><a href="http://www.indivisible.us">indivisible.us</a></p>
+                <p><a href="http://www.indivisible.us" target="_blank">indivisible.us</a></p>
               </div>
             </div>
           </div>
@@ -140,25 +192,25 @@ title: Ben Korody
         
         <div class="row">
           <div class="col-sm-4">
-            <h4>Organizing for Action</h4>
+            <h4><a href="https://www.barackobama.com" target="_blank">Organizing for Action</a></h4>
           </div>
           <div class="col-sm-8">
             <div class="row">
               <div class="col-sm-12">
                 <h5>Barack Obama</h5>
-                <p>Front-end web development, some back-end development with python</p>
-                <p><a href="https://www.barackobama.com/">barackobama.com</a></p>
+                <p>Front-end web development{% comment %}, some back-end development with Python{% endcomment %}</p>
+                <p><a href="https://www.barackobama.com/" target="_blank">barackobama.com</a></p>
               </div>
           
               <div class="col-sm-12">
                 <h5>Climate Change Deniers</h5>
-                <p>Front-end web development, with Angular</p>
-                <p><a href="https://www.barackobama.com/climate-change-deniers/">barackobama.com/deniers</a></p>
+                <p>Front-end web development{% comment %}, with Angular{% endcomment %}</p>
+                <p><a href="https://www.barackobama.com/climate-change-deniers/" target="_blank">barackobama.com/deniers</a></p>
               </div>
               <div class="col-sm-12">
                 <h5>Barack Obama Shopify Store</h5>
                 <p>Front-end web development</p>
-                <p><a href="https://store.barackobama.com">store.barackobama.com</a></p>
+                <p><a href="https://store.barackobama.com" target="_blank">store.barackobama.com</a></p>
               </div>
             </div>
           </div>
@@ -166,19 +218,19 @@ title: Ben Korody
         
         <div class="row">
           <div class="col-sm-4">
-            <h4>Cuban Council</h4>
+            <h4><a href="http://www.cubancouncil.com" target="_blank">Cuban Council</a></h4>
           </div>
           <div class="col-sm-8">
             <div class="row"> 
               <div class="col-sm-12">
                 <h5>Bungalux</h5>
-                <p>Full statck web-development, with PHP</p>
-                <p><a href="http://www.bungalux.com">bungalux.com</a></p>
+                <p>Full statck web-development{% comment %}, with PHP{% endcomment %}</p>
+                <p><a href="http://www.bungalux.com" target="_blank">bungalux.com</a></p>
               </div>
               <div class="col-sm-12">
                 <h5>The American Film Company</h5>
                 <p>Front-end web development</p>
-                <p><a href="http://theamericanfilmcompany.com">theamericanfilmcompany.com</a></p>
+                <p><a href="http://theamericanfilmcompany.com" target="_blank">theamericanfilmcompany.com</a></p>
               </div>
             </div>
           </div>
@@ -197,12 +249,12 @@ title: Ben Korody
               </div>
               <div class="col-sm-12">
                 <h5>Ticket Rumba</h5>
-                <p>Full-stack web development, ROR</p>
+                <p>Full-stack web development{% comment %} with ROR{% endcomment %}</p>
                 <p><a href="http://www.theticketrumba.com/">theticketrumba.com</a></p>
               </div>
               <div class="col-sm-12">
                 <h5>Free Frank</h5>
-                <p>Front-end web development, old school</p>
+                <p>old School Front-end web development{% comment %}, old school yo{% endcomment %}</p>
                 <p><a href="http://www.freefrank.org">freefrank.org</a></p>
               </div>
               
@@ -250,18 +302,22 @@ title: Ben Korody
     </div>
     
     
-    <span id="backdrop-x" class="step" data-x="1000" data-y="100" data-z="-1000" data-rotate="0" data-rotate-x="0" data-rotate-y="0" data-scale="55" data-target="benkorody" data-step="false"> </span>
+    <span id="backdrop-x" class="step" data-x="00" data-y="0" data-z="-900" data-rotate="0" data-rotate-x="0" data-rotate-y="0" data-scale="55" data-target="benkorody" data-step="false"> </span>
 
-    <span id="backdrop-y" class="step" data-x="2100" data-y="0" data-z="1200" data-rotate="0" data-rotate-x="0" data-rotate-y="-90" data-scale="55" data-target="benkorody" data-step="false"> </span>
+    <span id="backdrop-y" class="step" data-x="2200" data-y="0" data-z="1300" data-rotate="0" data-rotate-x="0" data-rotate-y="-90" data-scale="55" data-target="benkorody" data-step="false"> </span>
+    
+    <span id="backdrop-z" class="step" data-x="100" data-y="2300" data-z="1200" data-rotate="0" data-rotate-x="90" data-rotate-y="0" data-scale="55" data-target="benkorody" data-step="false"> </span>
     
     {% comment %}
     <div id="all-x" class="step" data-x="0" data-y="0" data-z="0" data-rotate="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="20"> </div>
     
     <div id="all-y" class="step" data-x="0" data-y="0" data-z="0" data-rotate="0" data-rotate-x="0" data-rotate-y="-90" data-rotate-z="0" data-scale="20"> </div>
-    {% endcomment %}
+    
     <div id="all-z" class="step" data-x="0" data-y="0" data-z="0" data-rotate="0" data-rotate-x="90" data-rotate-y="0" data-rotate-z="0" data-scale="20"> </div>
     
     <div id="all-xyz" class="step" data-x="0" data-y="0" data-z="0" data-rotate="0" data-rotate-x="45" data-rotate-y="-45" data-rotate-z="45" data-scale="20"> </div>
+    
+    {% endcomment %}
     
     
 
@@ -272,4 +328,3 @@ title: Ben Korody
 
 <script src="assets/js/lib/jquery.min.js"></script>
 <script src="assets/js/me.min.js"></script>
-{% comment %}<script>impress().init();</script>{% endcomment %}
