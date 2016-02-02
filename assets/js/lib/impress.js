@@ -507,6 +507,9 @@
             // If you are reading this and know any better way to handle it, I'll be glad to hear about it!
             window.scrollTo(0, 0);
             window.blur()
+            //step.offset.x = 0;
+            //step.offset.y = 0;
+            //step.offset.z = 0; 
             
             var step = stepsData["impress-" + el.id];
             
