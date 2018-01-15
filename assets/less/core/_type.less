@@ -40,7 +40,7 @@ h1, .h1,
 h2, .h2,
 h3, .h3 {
   //margin-top: 0;
-  margin-bottom: 0;
+  //margin-bottom: 0;
 }
 h4, .h4,
 h5, .h5,
@@ -54,6 +54,7 @@ p {
   font-weight: 400;
   display: inline;
   padding-right: @inline-right-margin;
+  text-align: justify;
 }
 
 
@@ -74,10 +75,10 @@ p {
   }
 
   h3 {
-    
     display: inline;
     padding-right: @inline-right-margin;
     
+    line-height: @font-size-base;
     font-size: @font-size-h3 *@font-sm;
     @media(min-width: @screen-sm) {
       font-size: @font-size-h3;

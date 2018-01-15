@@ -6,9 +6,7 @@ A static site for my website using Jekyll. A custom version of [Impress.js](http
 
 ## License
 
-Feel free to repurpose this project but please find your own creativity and provide some sort of attribution. I'd also like to know if you do :]
+Feel free to repurpose this project but please find your own creativity and provide some sort of attribution. 
 
-Copyright 2016 Ben Korody
-
-Released under the [Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported (CC BY-NC-ND 3.0)](https://creativecommons.org/licenses/by-nc-nd/3.0/ "CC BY-NC-ND 3.0") License.
+<a rel="license" href="http://creativecommons.org/licenses/by/3.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/3.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>.
 

@@ -507,6 +507,9 @@
             // If you are reading this and know any better way to handle it, I'll be glad to hear about it!
             window.scrollTo(0, 0);
             window.blur()
+            //step.offset.x = 0;
+            //step.offset.y = 0;
+            //step.offset.z = 0; 
             
             var step = stepsData["impress-" + el.id];
             
@@ -973,43 +976,64 @@
         var throttledOffset = 0;
         var transitioning = false;
         
-        var scrolled = function (e, oldNormal) {
-          e = e ? e : window.event;
-          var raw = e.detail ? e.detail : e.wheelDelta;
-          var normal = e.detail ? e.detail * -1 : e.wheelDelta / 20;
-          typeof oldNormal !== 'undefined' ? normal = oldNormal : '';
+        var scrolled = function (e, norm) {
+          //console.log(norm);
+          if(typeof norm !== 'undefined') {
+            var normal = norm;
+          } else {
+            e = e ? e : window.event;
+            var raw = e.detail ? e.detail : e.wheelDelta;
+            var normal = e.detail ? e.detail * -1 : e.wheelDelta / 20;
+          }
           //console.log("Raw Value: " + raw + ", Normalized Value: " + normal);
           
           var el = document.querySelector(".step.active");
           
+          
           setTimeout(function() {
             //console.log("timemout");
             //if(throttledOffset > 0) {
-            //if (!transitioning) {
             api.goto(el, 10, 0, {x:0,y:throttledOffset,z:0} );
             //} else {
             //  scrolled(e, oldNormal);
             //}
             //}
-            transitioning = true;
             throttledOffset = 0;
             throttled = true;
           }, 10);
           
           throttledOffset += normal;
           throttled = false;
+          
+          
+          
+          /*
+          throttledOffset += normal;
+          console.log('throttledOffset');
+          
+          if (!transitioning) {
+            console.log('!transitioning scroll');
+            transitioning = true;
+            api.goto(el, 10, 0, {x:0,y:throttledOffset,z:0} );
+            throttledOffset = 0;
+          }*/
+          
+          
+          
         };
         
         
         window.addEventListener("mousewheel", scrolled, true);
         window.addEventListener("DOMMouseScroll", scrolled, true);
         
-        /*PrefixedEvent(window.root, "TransitionEnd", function() {
-          //console.log("TransitionEnd");
+        /*
+        PrefixedEvent(window.root, "TransitionEnd", function() {
+          console.log("TransitionEnd");
+          
           transitioning = false;
-        });*/
-
-        
+          scrolled(false, 0);
+        });
+        */
         
     }, false);
     
